@@ -6,6 +6,12 @@ require("dotenv").config();
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "https://todo-frontend-eta-orpin.vercel.app",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -13,9 +19,6 @@ mongoose
   .connect("mongodb+srv://ehsan:1234@todo.it9yp1x.mongodb.net/?appName=todo")
   .then(() => console.log("MongoDB Atlas Connected ✅"))
   .catch((err) => console.error("Mongo Error ❌", err));
-app.use("/get", (req, res) => {
-  res.send("hello");
-});
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/todos", require("./routes/todos"));
 
